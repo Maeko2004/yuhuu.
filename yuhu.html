@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun Qena</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            position: relative;
+        }
+        h1 {
+            font-size: 3em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes waveText {
+            0% { transform: rotate(-5deg); }
+            100% { transform: rotate(5deg); }
+        }
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            font-size: 2em;
+            animation: floatUp 5s infinite ease-in-out;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-120vh); opacity: 0; }
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: yellow;
+            animation: fall 3s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        .cake {
+            font-size: 4em;
+            position: absolute;
+            bottom: 10%;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 1.5em;
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #e60073;
+        }
+        #videoContainer {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="title">🎉 Selamat Ulang Tahun Qena 🎂</h1>
+        <div class="cake">🎂</div>
+        <button class="button" id="startButton" onclick="startAnimation()">Klik untuk Mulai!</button>
+        <div id="videoContainer">
+            <video width="320" height="240" controls id="birthdayVideo">
+                <source src="hh.mp4" type="video/mp4">
+                Browser Anda tidak mendukung tag video.
+            </video>
+        </div>
+    </div>
+    <script>
+        function startAnimation() {
+            document.getElementById("title").style.animation = "fadeIn 2s forwards, waveText 3s infinite alternate";
+            createEffects();
+            document.getElementById("videoContainer").style.display = "block";
+            document.getElementById("birthdayVideo").play();
+            document.getElementById("startButton").style.display = "none";
+            let audio = new Audio("https://www.bensound.com/bensound-music/bensound-birthday.mp3");
+            audio.loop = true;
+            audio.play();
+        }
+        function createEffects() {
+            setInterval(createBalloon, 500);
+            setInterval(createConfetti, 200);
+        }
+        function createBalloon() {
+            let balloon = document.createElement("div");
+            balloon.classList.add("balloon");
+            balloon.textContent = "🎈";
+            balloon.style.left = Math.random() * 100 + "vw";
+            balloon.style.animationDuration = (Math.random() * 2 + 3) + "s";
+            document.body.appendChild(balloon);
+            setTimeout(() => balloon.remove(), 5000);
+        }
+        function createConfetti() {
+            let confetti = document.createElement("div");
+            confetti.classList.add("confetti");
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.top = "-10px";
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 3000);
+        }
+    </script>
+</body>
+</html>
